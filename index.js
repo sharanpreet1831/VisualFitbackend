@@ -2,6 +2,7 @@ import express from "express";
 // const dbconnect = require("./config/database");
 const app = express();
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 // load config from env file
 dotenv.config();
 
@@ -12,11 +13,12 @@ app.use(express.json());
 
 // import route for Todo api
 import visualfitRouter from "./Routes/visualfit.js";
-//mount the todo ASPI routes
+import postRouter from "./Routes/post.js";
 app.use("/api/v1", visualfitRouter);
+app.use("/api/v1/post", postRouter);
 
 app.listen(PORT, () => {
-  console.log(`server started succesfully at ${PORT}`);
+  console.log(`server started successfully at ${PORT}`);
 });
 
 //connect database
@@ -25,6 +27,7 @@ import fileUpload from "express-fileupload";
 dbconnect();
 
 // Use temp file directory
+app.use(cookieParser());
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -34,6 +37,7 @@ app.use(
 
 // Connect to Cloudinary cloud for uploading pictures
 import cloudinaryConnect from "./config/cloudinary.js";
+
 cloudinaryConnect();
 
 app.get("/", (req, res) => {
