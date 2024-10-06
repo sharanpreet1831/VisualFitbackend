@@ -1,48 +1,7 @@
-const express = require ("express");
+import express from "express";
 const router = express.Router();
-const user = require ("../Model/User")
+import createuser from "../controller /createuser.js";
 
-// const {createuser} = require("../controllers/createuser");
-const {createuser} = require("../controller/createuser")
-//const {getuser,getTodoById} = require("../controllers/getuser");
+router.post("/createuser", createuser);
 
-
-
-// router.get("/getuser",getuser)
-console.log(createuser);
-
-
-
-// const createuser = async(req , res)=>{
-//     try {
-//          //extract title and description request body  from body
-//          const {Name , Gender ,Bodyweight , Height ,Days_in_week  } = req.body; 
-//          //create  a new todo obj and insert into db 
-//          const response = await user.create({Name , Gender ,Bodyweight , Height ,Days_in_week});
-//          // send a json response with a sucess flag 
-//          res.status(200).json(
-//              {
-//                  sucsess:true ,
-//                  data :response,
-//                  message :"Entry created succesfully"
-//              }
-//          );
-//     }
-
-// catch(err) {
-//     console.error(err);
-//     console.log(err);
-//     res.status(500).json(
-//         {
-//             sucsess:false,
-//             data:"internal server error ",
-//             message:err.message,
-//         }
-//     )
-// }
-// }
-
-router.post("/createuser",createuser);
-
-
-module.exports= router;
+export default router;
