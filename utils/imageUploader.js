@@ -1,6 +1,7 @@
 import cloudinaryV2 from "cloudinary";
 const cloudinary = cloudinaryV2.v2;
 
+// Image File uploader
 const uploadImageToCloudinary = async (file, folder, height, quality) => {
   const options = { folder };
   if (height) {
