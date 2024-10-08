@@ -13,5 +13,4 @@ const TransformationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Transformation = mongoose.model("Transformation", TransformationSchema);
-module.exports = Transformation;
+export default mongoose.model("Transformation", TransformationSchema);

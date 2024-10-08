@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import User from "./user.model.js";
 
 const PostSchema = new mongoose.Schema(
   {
@@ -15,10 +14,13 @@ const PostSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    likeCount: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Like",
-    },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Like",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -1,19 +1,23 @@
 import mongoose from "mongoose";
 
-const FollowSchema = new mongoose.Schema(
+const LikeSchema = new mongoose.Schema(
   {
-    followerId: {
+    postId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+      required: true,
+    },
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    followedId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+    creationTime: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
 );
 
-export const Follow = mongoose.model("Follow", FollowSchema);
+export default mongoose.model("Like", LikeSchema);

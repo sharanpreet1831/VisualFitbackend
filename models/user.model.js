@@ -2,11 +2,21 @@ import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
   {
-    userId: {
+    name: {
       type: String,
       required: true,
     },
     username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
       type: String,
       required: true,
     },
@@ -18,6 +28,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
