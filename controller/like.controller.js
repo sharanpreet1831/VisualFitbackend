@@ -20,7 +20,7 @@ export const likePost = async (req, res) => {
     if (!token) {
       return res
         .status(403)
-        .json({ success: false, message: "Unauthorized to Post" });
+        .json({ success: false, message: "Unauthorized to Like" });
     }
     const { postId } = req.body;
     const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);

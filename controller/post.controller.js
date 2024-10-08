@@ -58,8 +58,9 @@ export const createPost = async (req, res) => {
 
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.find({}).sort({ createdAt: -1 }).populate("likes");
-    console.log(posts);
+    const posts = await Post.find({})
+      .sort({ createdAt: -1 })
+      .populate("likes comments");
     return res.status(200).json({ success: true, posts: posts });
   } catch (err) {
     console.log(err);
@@ -96,7 +97,13 @@ export const deletePost = async (req, res) => {
         .json({ success: false, message: "Unauthorized to delete post" });
     }
     const { postId } = req.body;
-    console.log(req.body);
+    if (!user.posts.includes(postId)) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized to delete this post. You do not own this post.",
+      });
+    }
+
     const deletedPost = await Post.findByIdAndDelete(postId);
     if (!deletedPost) {
       return res
