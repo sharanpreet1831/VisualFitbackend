@@ -25,6 +25,7 @@ export const likePost = async (req, res) => {
     const { postId } = req.body;
     const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
     const post = await Post.findById(postId);
+    console.log(postId);
     if (!post) {
       return res
         .status(404)

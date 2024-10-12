@@ -58,3 +58,31 @@ export const createComment = async (req, res) => {
     });
   }
 };
+
+export const fetchComments = async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    if (!postId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Post ID is required." });
+    }
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
+    }
+    const comments = await Comment.find({ postId: post._id }).populate(
+      "userId",
+      "username avatar"
+    );
+    return res.status(200).json({ success: true, comments: comments });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error. Please try again later.",
+    });
+  }
+};

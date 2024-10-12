@@ -9,6 +9,7 @@ import dbconnect from "./config/database.js";
 import cloudinaryConnect from "./config/cloudinary.js";
 import likeRouter from "./routes/like.router.js";
 import commentRouter from "./routes/comment.router.js";
+import userRouter from "./routes/user.router.js";
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,7 @@ app.use(
   })
 );
 app.use("/api/v1", authRouter);
+app.use("/api/v1", userRouter);
 app.use("/api/v1/post", postRouter, likeRouter, commentRouter);
 app.listen(PORT, () => {
   console.log(`server started successfully at ${PORT}`);

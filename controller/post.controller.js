@@ -59,8 +59,22 @@ export const createPost = async (req, res) => {
 export const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find({})
+      .select("-createdAt -updatedAt") // Exclude createdAt and updatedAt
       .sort({ createdAt: -1 })
-      .populate("likes comments");
+      .populate({
+        path: "comments",
+        model: "Comment",
+      })
+      .populate({
+        path: "likes",
+        model: "Like",
+      })
+      .populate({
+        path: "userId",
+        select: "username",
+        model: "User",
+      });
+
     return res.status(200).json({ success: true, posts: posts });
   } catch (err) {
     console.log(err);

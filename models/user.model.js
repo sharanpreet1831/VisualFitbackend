@@ -35,6 +35,30 @@ const UserSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    personalDetails: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "PersonalDetails",
+    },
+    setGoal: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Goal",
+    },
+    fitnessGoal: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FitnessGoal",
+    },
+    isPersonalDetailsSet: {
+      type: Boolean,
+      default: false,
+    },
+    isGoalSet: {
+      type: Boolean,
+      default: false,
+    },
+    isFitnessGoalSet: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
